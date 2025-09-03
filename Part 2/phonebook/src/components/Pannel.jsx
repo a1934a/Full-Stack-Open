@@ -41,7 +41,7 @@ const Pannel = ({ persons, setPersons }) => {
             .then((data) => {
                 setMessage(`successfully deleted`)
                 setColor("green")
-                setPersons(persons.filter(person => person.id !== data.id))
+                setPersons(persons.filter(person => person.id !== id))
             })
             .catch((error) => {
                 setMessage("person already deleted")
