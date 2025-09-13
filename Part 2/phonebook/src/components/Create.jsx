@@ -7,6 +7,7 @@ const Create = ({ persons, setPersons }) => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [message, setMessage] = useState(null)
+  const [color, setColor] = useState("green")
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -43,9 +44,13 @@ const Create = ({ persons, setPersons }) => {
         .then((newObject) => {
           console.log("Created person:", newObject)
           setPersons(persons.concat(newObject))
-        }
-        )
-      setMessage(`Added ${newName}`)
+          setMessage(`Added ${newName}`)
+          setColor('green')
+        })
+        .catch(error => {
+          setMessage(error.response.data.error)
+          setColor('red')
+        })
     }
 
     setNewName('')
@@ -54,7 +59,7 @@ const Create = ({ persons, setPersons }) => {
 
   return (
     <div>
-      <Notification message={message} setMessage={setMessage} />
+      <Notification message={message} setMessage={setMessage} color={color} />
       <form onSubmit={handleSubmit}>
         <div>
           name: <input value={newName} onChange={handleNameChange} />
